@@ -3,13 +3,14 @@ package server
 import (
 	"fmt"
 	"log"
-	"mywsapp/fibonacci"
+	"mywsapp/roman"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 )
 
-var prompt = "<b>What fibbonaci index do you want to know?</b>"
+var prompt = "<b>What roman numeral do you want ot convert to base10?</b>"
 
 type IncommingMsg struct {
 	Source  string
@@ -65,13 +66,13 @@ func (h *WebsocketServerController) run() {
 			h.echoMsgToOtherClients(message)
 
 			// Parse the user input
-			resp, err := fibonacci.ParseIndex(string(message.Payload))
+			val, err := roman.Parse(string(message.Payload))
 
 			// Send the response
 			if err != nil {
-				h.broadcastMsg(fmt.Sprintf("server error: unable to parse the given index: %s", err))
+				h.broadcastMsg(fmt.Sprintf("server error: unable to parse the given roman numeral: %s", err))
 			} else {
-				h.broadcastMsg(fmt.Sprintf("<b>Answer:</b> %s", resp))
+				h.broadcastMsg(fmt.Sprintf("<b>Answer:</b> %s", strconv.Itoa(val)))
 			}
 
 			// resend the prompt

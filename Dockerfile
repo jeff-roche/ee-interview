@@ -6,7 +6,7 @@ COPY go.sum go.sum
 COPY vendor vendor/
 COPY main.go main.go
 COPY server server/
-COPY fibonacci fibonacci/
+COPY roman roman/
 
 RUN go build -mod=vendor -o serverapp main.go
 
