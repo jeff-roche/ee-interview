@@ -15,6 +15,7 @@ spec:
     type: Git
     git:
       uri: https://github.com/jeff-roche/ee-interview
+      ref: roman
   strategy:
     type: Docker                      
     dockerStrategy:
